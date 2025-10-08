@@ -42,20 +42,4 @@ public class Consumer {
             topic, partition, key, value));
     }
 
-
-    // @KafkaListener(
-    //     id = "c3", 
-    //     groupId = "myConsumer",
-    //     topics = "hello", 
-    //     autoStartup = "false"
-    // )
-    // public void c3_myConsumer(String value,
-    //         @Header(KafkaHeaders.RECEIVED_TOPIC) String topic,
-    //         @Header(KafkaHeaders.RECEIVED_PARTITION) int partition,
-    //         @Header(KafkaHeaders.RECEIVED_KEY) String key) {
-    //     logger.info(String.format(
-    //         "c3 consumed event from topic %s, partition %d, key = %-10s, value = %s",
-    //         topic, partition, key, value));
-    // }
-
 }

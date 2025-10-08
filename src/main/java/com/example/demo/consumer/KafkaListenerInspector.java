@@ -15,7 +15,7 @@ import org.springframework.kafka.config.KafkaListenerEndpointRegistry;
 import org.springframework.kafka.listener.MessageListenerContainer;
 import org.springframework.stereotype.Component;
 
-import com.example.demo.models.ConsumerModel;
+import com.example.demo.models.ConsumerListenerModel;
 import com.example.demo.models.PartitionInfoDTO;
 
 @Component
@@ -25,8 +25,8 @@ public class KafkaListenerInspector {
     @Autowired
     private KafkaListenerEndpointRegistry registry;
 
-    public List<ConsumerModel> getConsumers() {
-        List<ConsumerModel> consumers = new ArrayList<>();
+    public List<ConsumerListenerModel> getConsumerListeners() {
+        List<ConsumerListenerModel> consumers = new ArrayList<>();
         for (MessageListenerContainer container : registry.getListenerContainers()) {
             logger.info("Consumer Listener ID: " + container.getListenerId() + ", groupId: " + container.getGroupId() + ", isRunning: " + container.isRunning());
             Map<String, Collection<TopicPartition>> assignments = container.getAssignmentsByClientId();
@@ -41,7 +41,7 @@ public class KafkaListenerInspector {
                             .collect(Collectors.toList())
                     ));
             }
-            consumers.add(new ConsumerModel(
+            consumers.add(new ConsumerListenerModel(
                 container.getListenerId(), 
                 container.getGroupId(), 
                 container.isRunning(),

@@ -1,7 +1,7 @@
 package com.example.demo.models;
 
 import java.util.List;
-import java.util.Map;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,15 +10,15 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ConsumerModel {
-    private String listenerId;
+    private String clientId;
     private String groupId;
-    private boolean isRunning;
-    private Map<String, List<PartitionInfoDTO>> topicPartitions;
+    private String consumerMemberId;
+    private List<PartitionInfoDTO> assignedPartitions;
 
-    public ConsumerModel(String listenerId, String groupId, boolean isRunning, Map<String, List<PartitionInfoDTO>> topicPartitions) {
-        this.listenerId = listenerId;
+    public ConsumerModel(String clientId, String groupId, String consumerMemberId, List<PartitionInfoDTO> assignedPartitions) {
+        this.clientId = clientId;
         this.groupId = groupId;
-        this.isRunning = isRunning;
-        this.topicPartitions = topicPartitions;
+        this.consumerMemberId = consumerMemberId;
+        this.assignedPartitions = assignedPartitions;
     }
 }
