@@ -4,18 +4,19 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.support.KafkaHeaders;
-import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.stereotype.Service;
+import org.springframework.messaging.handler.annotation.Header;
 
 @Service
-public class Consumer {
-    private final Logger logger = LoggerFactory.getLogger(Consumer.class);
+public class HelloConsumer {
+    private final Logger logger = LoggerFactory.getLogger(HelloConsumer.class);
 
     @KafkaListener(
         id = "c1", 
         groupId = "myConsumer",
         topics = "hello",
-        autoStartup = "false"
+        autoStartup = "false",
+        containerFactory = "stringKafkaListenerContainerFactory"
     )
     public void c1_myConsumer(String value,
             @Header(KafkaHeaders.RECEIVED_TOPIC) String topic,
@@ -31,7 +32,8 @@ public class Consumer {
         id = "c2", 
         groupId = "myConsumer",
         topics = "hello",
-        autoStartup = "false"
+        autoStartup = "false",
+        containerFactory = "stringKafkaListenerContainerFactory"
     )
     public void c2_myConsumer(String value,
             @Header(KafkaHeaders.RECEIVED_TOPIC) String topic,

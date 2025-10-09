@@ -6,12 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.consumer.ConsumerGroupInspector;
-import com.example.demo.consumer.KafkaListenerInspector;
+import com.example.demo.consumer.inspector.ConsumerGroupInspector;
+import com.example.demo.consumer.inspector.KafkaListenerInspector;
+import com.example.demo.models.BookMessageRequest;
 import com.example.demo.models.ConsumerListenerModel;
 import com.example.demo.models.ConsumerModel;
-import com.example.demo.models.MessageRequest;
-import com.example.demo.producer.Producer;
+import com.example.demo.models.StringMessageRequest;
+import com.example.demo.producer.BookProducer;
+import com.example.demo.producer.StringProducer;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,7 +25,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 @RequestMapping("kafka")
 public class SampleController {
     @Autowired
-    private Producer producer;
+    private StringProducer stringProducer;
+
+    @Autowired
+    private BookProducer bookProducer;
 
     @Autowired
     private KafkaListenerInspector kafkaListenerInspector;
@@ -31,9 +36,15 @@ public class SampleController {
     @Autowired
     private ConsumerGroupInspector consumerGroupInspector;
 
-    @PostMapping("produce")
-    public String produce(@RequestBody MessageRequest messageRequest) {
-        producer.sendMessage(messageRequest.getTopic(), messageRequest.getMessageKey(), messageRequest.getMessage());
+    @PostMapping("string/produce")
+    public String produce(@RequestBody StringMessageRequest messageRequest) {
+        stringProducer.sendMessage(messageRequest.getTopic(), messageRequest.getMessageKey(), messageRequest.getMessage());
+        return "Message sent to Kafka topic: " + messageRequest.getTopic();
+    }
+
+    @PostMapping("book/produce")
+    public String produceJson(@RequestBody BookMessageRequest messageRequest) {
+        bookProducer.sendMessage(messageRequest.getTopic(), messageRequest.getMessageKey(), messageRequest.getMessage());
         return "Message sent to Kafka topic: " + messageRequest.getTopic();
     }
 

@@ -7,12 +7,12 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class MessageRequest {
+public class StringMessageRequest {
     private String topic;
     private String messageKey;
-    private Object message;
+    private String message;
 
-    public MessageRequest(String topic, String messageKey, Object message) {
+    public StringMessageRequest(String topic, String messageKey, String message) {
         this.topic = topic;
         this.messageKey = messageKey;
         this.message = message;

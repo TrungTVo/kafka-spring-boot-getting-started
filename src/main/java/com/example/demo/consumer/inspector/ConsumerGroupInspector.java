@@ -1,4 +1,4 @@
-package com.example.demo.consumer;
+package com.example.demo.consumer.inspector;
 
 import java.util.ArrayList;
 import java.util.Collections;
