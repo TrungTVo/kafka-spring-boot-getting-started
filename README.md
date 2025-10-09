@@ -12,6 +12,26 @@ docker compose -f ./cp-all-in-one/docker-compose.yml up -d
 java -jar build/libs/demo-0.0.1-SNAPSHOT.jar
 ```
 
+## View offset in topic partitions
+Go inside `broker` container (image `confluentinc/cp-server`), inspect consumer group:
+```
+/usr/bin/kafka-consumer-groups --bootstrap-server localhost:9092 \
+	--describe --group myConsumer
+```
+Offsets:
+
+* `LOG-END-OFFSET`: This is the offset of the last message written to a partition in a Kafka topic, plus one (i.e., it points to the position where the next message will be written). It represents the total number of messages in the partition at a given time
+* `CURRENT-OFFSET`: This is the offset of the last message consumed (or committed) by a consumer in a consumer group for a specific partition. It indicates the position up to which the consumer group has processed messages
+* `LAG`: difference of `LOG-END-OFFSET - CURRENT-OFFSET`, indicates how many messages have been lagged behind (aka not consumed yet)
+
+To reset offset to earliest, run:
+```
+/usr/bin/kafka-consumer-groups --bootstrap-server localhost:9092 \
+	--group myConsumer \
+	--topic hello \
+	--reset-offsets --to-earliest --execute
+```
+
 ## APIs
 Check these endpoints below to understand how Kafka works
 
@@ -130,7 +150,7 @@ All endpoints are defined in `src/main/java/com/example/demo/controllers/SampleC
 
 Notes:
 - The app uses Spring Boot's default port 8080 unless overridden in `application.yml`.
-- The produce endpoint accepts an arbitrary JSON `message` payload — the producer will serialize it as configured in the application (check `Producer` implementation).
+- The produce endpoint accepts an arbitrary JSON `message` payload — by default the producer will convert it to string using `toString()` and serialize it as configured in the application (check `Producer` implementation).
 - The start/stop/pause/resume endpoints perform control actions on in-process listeners; they do not modify Kafka broker state.
 
 
