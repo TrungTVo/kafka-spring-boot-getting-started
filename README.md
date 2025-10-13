@@ -39,28 +39,42 @@ The application exposes a small set of HTTP endpoints under the base path `/kafk
 
 All endpoints are defined in `src/main/java/com/example/demo/controllers/SampleController.java`.
 
-### POST /kafka/produce
+### POST /kafka/book/produce
 
-- Description: produce/send a message to a Kafka topic via the app's `Producer`.
+- Description: produce/send a message of `Book` Object type to a Kafka `books` topic via the app's `bookProducer`.
 - Request headers: `Content-Type: application/json`
 - Request body (JSON):
 
 	```json
 	{
-		"topic": "my-topic",
-		"messageKey": "optional-key",
-		"message": { "any": "json-or-primitive" }
+		"topic": "books",
+		"messageKey": "key",
+		"message": { "title": "title", "author": "trung vo" }
 	}
 	```
 
-- Response: plain text message confirming the topic, e.g. `Message sent to Kafka topic: my-topic` (HTTP 200).
+- Response: plain text message confirming the topic, e.g. `Message sent to Kafka topic: books` (HTTP 200).
 
 - Example curl:
 
 	```bash
-	curl -X POST http://localhost:8080/kafka/produce \
+	curl -X POST http://localhost:8080/kafka/book/produce \
 		-H "Content-Type: application/json" \
-		-d '{"topic":"my-topic","messageKey":"key-1","message":{"foo":"bar"}}'
+		-d '{"topic":"books","messageKey":"key-1","message":{"title": "title", "author": "trung vo"}}'
+	```
+
+### POST /kafka/string/produce
+
+- Description: produce/send a message of string type to a Kafka `hello` topic via the app's `stringProducer`.
+- Request headers: `Content-Type: application/json`
+- Request body (JSON):
+
+	```json
+	{
+		"topic": "hello",
+		"messageKey": "key",
+		"message": "hello world..."
+	}
 	```
 
 ### GET /kafka/consumer/listeners
