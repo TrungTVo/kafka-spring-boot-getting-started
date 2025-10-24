@@ -7,6 +7,13 @@ docker compose -f ./cp-all-in-one/docker-compose.yml up -d
 ```
 
 ## Start Spring Boot app
+`avro` schema is stored under `src/main/resources/avro/` folder. Here we have sample `Payment.avsc` schema. First, we need to run `generateAvroJava` task before running `gradle build` so that it automatically generates `Payment.java` stored in `build/generated-main-avro-java/come/example/demo`. `gradle compileJava` task depends on this to be run first. Then in source `.java` files, it can import `Payment` from `com.example.demo` package namespace. 
+
+### For Avro schema
+```
+./gradlew generateAvroJava
+```
+### Run Spring Boot app
 ```
 ./gradlew clean build
 java -jar build/libs/demo-0.0.1-SNAPSHOT.jar
@@ -38,6 +45,11 @@ Check these endpoints below to understand how Kafka works
 The application exposes a small set of HTTP endpoints under the base path `/kafka`.
 
 All endpoints are defined in `src/main/java/com/example/demo/controllers/SampleController.java`.
+
+### For Avro schema
+Use `transactions` topic and produce and consume with these 2 endpoints:
+### POST /kafka/transaction/produce
+### GET /kafka/consumer/transactions
 
 ### POST /kafka/book/produce
 

@@ -43,4 +43,13 @@ public class Config {
                 .compact()
                 .build();
     }
+
+    @Bean
+    public NewTopic transactions() {
+        return TopicBuilder.name("transactions")
+                .partitions(2)
+                .replicas(1)
+                .compact()
+                .build();
+    }
 }
