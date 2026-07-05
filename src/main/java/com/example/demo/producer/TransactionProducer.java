@@ -53,8 +53,7 @@ public class TransactionProducer {
                 }
             });
         } finally {
-            producer.flush();
-            producer.close();
+            producer.flush(); // for demo purpose only
         }
     }
 }
