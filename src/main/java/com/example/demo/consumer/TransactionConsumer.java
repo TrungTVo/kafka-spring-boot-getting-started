@@ -67,10 +67,10 @@ public class TransactionConsumer {
                     record.value().toString()
                 ));
             }
+            // Commit AFTER all records in the batch are processed
+            consumer.commitSync();
         } catch (Exception e) {
             this.logger.error(e.getMessage(), e);
-        } finally {
-            consumer.close();
         }
     }
 }
