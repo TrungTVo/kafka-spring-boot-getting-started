@@ -1,0 +1,199 @@
+{
+  "info": {
+    "_postman_id": "29c393e1-2336-4705-9898-36ff10cb2b3a",
+    "name": "springboot-kafka-confluent",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "6355772"
+  },
+  "item": [
+    {
+      "name": "/kafka/consumer/listeners",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/kafka/consumer/listeners",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "kafka",
+            "consumer",
+            "listeners"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "/kafka/consumer/{groupID}/members",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/kafka/consumer/myConsumer/members",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "kafka",
+            "consumer",
+            "myConsumer",
+            "members"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "/kafka/consumer/{consumerListenerId}/start",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/kafka/consumer/c3/start",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "kafka",
+            "consumer",
+            "c3",
+            "start"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "/kafka/consumer/{consumerListenerId}/stop",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/kafka/consumer/c1/stop",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "kafka",
+            "consumer",
+            "c1",
+            "stop"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "/kafka/consumer/{consumerListenerId}/pause",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/kafka/consumer/c1/pause",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "kafka",
+            "consumer",
+            "c1",
+            "pause"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "/kafka/consumer/{consumerListenerId}/resume",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/kafka/consumer/c1/resume",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "kafka",
+            "consumer",
+            "c1",
+            "resume"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "/kafka/transaction/produce",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"topic\": \"transactions\",\n    \"messageKey\": \"0\",\n    \"message\": {\n        \"id\": \"123\",\n        \"amount\": 45.6\n    }\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/kafka/transaction/produce",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "kafka",
+            "transaction",
+            "produce"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "/kafka/consumer/transactions",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"topic\": \"transactions\",\n    \"messageKey\": \"0\",\n    \"message\": {\n        \"id\": \"123\",\n        \"amount\": 45.6\n    }\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/kafka/consumer/transactions",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "kafka",
+            "consumer",
+            "transactions"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
