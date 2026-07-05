@@ -3,7 +3,6 @@ package com.example.demo.controllers;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -29,23 +28,28 @@ import org.springframework.web.bind.annotation.PathVariable;
 @RestController
 @RequestMapping("kafka")
 public class SampleController {
-    @Autowired
-    private StringProducer stringProducer;
+    private final StringProducer stringProducer;
+    private final BookProducer bookProducer;
+    private final TransactionProducer transactionProducer;
+    private final KafkaListenerInspector kafkaListenerInspector;
+    private final ConsumerGroupInspector consumerGroupInspector;
+    private final TransactionConsumer transactionConsumer;
 
-    @Autowired
-    private BookProducer bookProducer;
-
-    @Autowired
-    private TransactionProducer transactionProducer;
-
-    @Autowired
-    private KafkaListenerInspector kafkaListenerInspector;
-
-    @Autowired
-    private ConsumerGroupInspector consumerGroupInspector;
-
-    @Autowired
-    private TransactionConsumer transactionConsumer;
+    SampleController(
+        StringProducer stringProducer, 
+        BookProducer bookProducer, 
+        TransactionProducer transactionProducer, 
+        KafkaListenerInspector kafkaListenerInspector, 
+        ConsumerGroupInspector consumerGroupInspector, 
+        TransactionConsumer transactionConsumer
+    ) {
+        this.stringProducer = stringProducer;
+        this.bookProducer = bookProducer;
+        this.transactionProducer = transactionProducer;
+        this.kafkaListenerInspector = kafkaListenerInspector;
+        this.consumerGroupInspector = consumerGroupInspector;
+        this.transactionConsumer = transactionConsumer;
+    }
 
     @PostMapping("string/produce")
     public String produce(@RequestBody StringMessageRequest messageRequest) {

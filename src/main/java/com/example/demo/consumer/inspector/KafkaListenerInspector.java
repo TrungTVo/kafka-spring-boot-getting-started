@@ -10,7 +10,6 @@ import java.util.stream.Collectors;
 import org.apache.kafka.common.TopicPartition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.config.KafkaListenerEndpointRegistry;
 import org.springframework.kafka.listener.MessageListenerContainer;
 import org.springframework.stereotype.Component;
@@ -22,8 +21,11 @@ import com.example.demo.models.PartitionInfoDTO;
 public class KafkaListenerInspector {
     private final Logger logger = LoggerFactory.getLogger(KafkaListenerInspector.class);
 
-    @Autowired
-    private KafkaListenerEndpointRegistry registry;
+    private final KafkaListenerEndpointRegistry registry;
+
+    public KafkaListenerInspector(KafkaListenerEndpointRegistry registry) {
+        this.registry = registry;
+    }
 
     public List<ConsumerListenerModel> getConsumerListeners() {
         List<ConsumerListenerModel> consumers = new ArrayList<>();

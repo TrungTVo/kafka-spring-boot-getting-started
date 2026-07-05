@@ -10,7 +10,6 @@ import org.apache.kafka.clients.admin.ConsumerGroupDescription;
 import org.apache.kafka.clients.admin.DescribeConsumerGroupsResult;
 import org.apache.kafka.clients.admin.MemberDescription;
 import org.apache.kafka.common.TopicPartition;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaAdmin;
 import org.springframework.stereotype.Component;
 
@@ -19,8 +18,11 @@ import com.example.demo.models.PartitionInfoDTO;
 
 @Component
 public class ConsumerGroupInspector {
-    @Autowired
-    private KafkaAdmin kafkaAdmin;
+    private final KafkaAdmin kafkaAdmin;
+
+    public ConsumerGroupInspector(KafkaAdmin kafkaAdmin) {
+        this.kafkaAdmin = kafkaAdmin;
+    }
 
     public List<ConsumerModel> getConsumersByGroupId(String groupId) throws Exception {
         List<ConsumerModel> consumers = new ArrayList<>();
